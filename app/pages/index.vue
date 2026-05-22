@@ -116,54 +116,27 @@
 				<h2 class="section-title">New Arrival</h2>
 			</div>
 			<div class="col-3 d-flex justify-content-end">
-				<a href="#" class="more">View All</a>
+        <NuxtLink :to="{ path: '/products', query: { field: 'label', name: 'New' }}" class="more">
+          View All
+        </NuxtLink>
 			</div>
 		</div>
 		<div class="short-goods row">
-			<div class="col-lg-3 col-sm-6">
+			<div class="col-lg-3 col-sm-6" v-for="product in data">
 				<div class="goods-card">
-					<span class="label">New</span>
-					<img src="/images/image-119.jpg" alt="image: Hoodie" class="goods-image">
-					<h3 class="goods-title">Embroidered Hoodie</h3>
-					<p class="goods-description">Yellow/Lilac/Fuchsia/Orange</p>
-					<button class="button goods-card-btn add-to-cart" data-id="012">
-						<span class="button-price">$89</span>
+					<span class="label" v-if="product.label">{{ product.label.toUpperCase() }}</span>
+					<img :src="product.img" :alt="`image: ${product.name}`" class="goods-image">
+					<h3 class="goods-title">{{ product.name }}</h3>
+					<p class="goods-description">{{ product.description }}</p>
+					<button class="button goods-card-btn add-to-cart" :data-id="product.id">
+						<span class="button-price">${{ product.price }}</span>
 					</button>
 				</div>
 			</div>
-			<div class="col-lg-3 col-sm-6">
-				<div class="goods-card">
-					<span class="label">New</span>
-					<img src="/images/image-120.jpg" alt="image: Faded Beach Trousers" class="goods-image">
-					<h3 class="goods-title">Faded Beach Trousers</h3>
-					<p class="goods-description">Navy/Ochre/Black/Khaki</p>
-					<button class="button goods-card-btn add-to-cart" data-id="011">
-						<span class="button-price">$139</span>
-					</button>
-				</div>
-			</div>
-			<div class="col-lg-3 col-sm-6">
-				<div class="goods-card">
-					<span class="label">New</span>
-					<img src="/images/image-121.jpg" alt="image: Text T-Shirt" class="goods-image">
-					<h3 class="goods-title">Text T-Shirt</h3>
-					<p class="goods-description">White</p>
-					<button class="button goods-card-btn add-to-cart" data-id="010">
-						<span class="button-price">$59</span>
-					</button>
-				</div>
-			</div>
-			<div class="col-lg-3 col-sm-6">
-				<div class="goods-card">
-					<span class="label">New</span>
-					<img src="/images/image-122.jpg" alt="image: Striped Long Sleeve Shirt" class="goods-image">
-					<h3 class="goods-title">Striped Long Sleeve Shirt</h3>
-					<p class="goods-description">Red/Sky Blue</p>
-					<button class="button goods-card-btn add-to-cart" data-id="001">
-						<span class="button-price">$119</span>
-					</button>
-				</div>
-			</div>
-		</div>
+		</div> 
 	</section>
 </template>
+
+<script setup>
+const { data } = await useFetch('/api/new-products');
+</script>
